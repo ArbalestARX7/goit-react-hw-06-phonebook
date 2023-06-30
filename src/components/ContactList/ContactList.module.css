@@ -1,0 +1,36 @@
+.contactList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contactItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  min-width: 360px;
+}
+
+.contactNumber {
+  margin-right: 10px;
+}
+
+.listBtn {
+  padding: 5px 15px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #20bd9c;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.listBtn:hover,
+.listBtn:focus {
+  background-color: #3bc4a7;
+}
