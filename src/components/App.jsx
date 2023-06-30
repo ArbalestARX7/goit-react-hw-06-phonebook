@@ -1,34 +1,15 @@
-import { useEffect, useState } from 'react';
 import ContactForm from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { nanoid } from 'nanoid';
 import Filter from './Filter/Filter';
-
-const startContacts = [
-  { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-  { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-  { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-  { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-];
-
-function getLocalContacts() {
-  const savedContacts = localStorage.getItem('contacts');
-
-  if (savedContacts) {
-    const parsedContacts = JSON.parse(savedContacts);
-    return parsedContacts;
-  }
-
-  return startContacts;
-}
+import { useSelector, useDispatch } from 'react-redux';
+import { addContact, getContacts, removeContact } from 'redux/contactsSlice';
+import { getFilter, setFilter } from 'redux/filterSlice';
 
 export default function App() {
-  const [contacts, setContacts] = useState(getLocalContacts);
-  const [filter, setFilter] = useState('');
-
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+  const filter = useSelector(getFilter);
+  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
 
   const formSubmitHandler = (name, number) => {
     const newContact = {
@@ -44,11 +25,15 @@ export default function App() {
       return;
     }
 
-    setContacts([newContact, ...contacts]);
+    dispatch(addContact(newContact));
+  };
+
+  const deleteContact = contactId => {
+    dispatch(removeContact(contactId));
   };
 
   const changeFilter = e => {
-    setFilter(e.currentTarget.value);
+    dispatch(setFilter(e.currentTarget.value));
   };
 
   const getFilteredContacts = () => {
@@ -59,10 +44,6 @@ export default function App() {
         contact.name.toLowerCase().includes(normalizedFilter) ||
         contact.number.includes(normalizedFilter)
     );
-  };
-
-  const deleteContact = contactId => {
-    setContacts(contacts.filter(contact => contact.id !== contactId));
   };
 
   return (

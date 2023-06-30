@@ -9,8 +9,6 @@ export default function ContactForm({ formSubmitHandler }) {
   const onInputHandler = evt => {
     const { value } = evt.currentTarget;
 
-    console.log(evt.currentTarget);
-
     switch (evt.currentTarget.name) {
       case 'name':
         setName(value);
