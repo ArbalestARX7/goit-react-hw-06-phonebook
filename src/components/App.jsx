@@ -1,9 +1,9 @@
 import ContactForm from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import Filter from './Filter/Filter';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getContacts } from 'redux/contactsSlice';
-import { getFilter, setFilter } from 'redux/filterSlice';
+import { getFilter } from 'redux/filterSlice';
 
 export default function App() {
   const filter = useSelector(getFilter);
